@@ -1,4 +1,5 @@
 import { generateText } from "ai"
+import { openai } from "@ai-sdk/openai"
 
 // COST PROTECTION: In-memory cache
 // Key: normalized input string → Value: { formula, explanation, timestamp }
@@ -129,7 +130,7 @@ export async function POST(req: Request) {
 
     // Call OpenAI API (server-side only, API key never exposed to client)
     const { text } = await generateText({
-      model: "openai/gpt-5-mini",
+      model: openai("gpt-4o-mini"),
       prompt: `다음 설명을 엑셀 수식으로 변환하세요.
 규칙:
 - 출력은 반드시 두 줄
